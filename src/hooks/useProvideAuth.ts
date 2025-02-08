@@ -1,40 +1,36 @@
 import { useState } from 'react';
+import { LoginFormSchema } from '../sites/main/LoginPage/useLoginFormHook';
+import { loginRequest } from '../services/authService';
+import { AxiosResponse } from 'axios';
+import { LoginResponse } from '../types/LoginResponse';
 
-const fakeAuth = {
-  isAuthenticated: false,
-  signin(cb: any) {
-    fakeAuth.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
-  },
-  signout(cb: any) {
-    fakeAuth.isAuthenticated = false;
-    setTimeout(cb, 100);
-  },
+export type AuthType = {
+  token: string | undefined;
+  signIn: (body: LoginFormSchema, callback: any, errorHandler: any) => void;
+  signOut: (callback: any) => void;
 };
 
-export const useProvideAuth = (): {
-  user: any;
-  signIn: any;
-  signOut: any;
-} => {
-  const [user, setUser] = useState<any>(null);
+export const useProvideAuth = (): AuthType => {
+  const [token, setToken] = useState<string>();
 
-  const signIn = (cb: any) => {
-    return fakeAuth.signin(() => {
-      setUser('user');
-      cb();
-    });
+  const signIn = (
+    body: LoginFormSchema,
+    callback: any,
+    errorHandler: any
+  ): void => {
+    loginRequest(body).then((response: AxiosResponse<LoginResponse>) => {
+      setToken(response.data.token);
+      callback();
+    }, errorHandler);
   };
 
-  const signOut = (cb: any) => {
-    return fakeAuth.signout(() => {
-      setUser(null);
-      cb();
-    });
+  const signOut = (callback: any): void => {
+    setToken(undefined);
+    callback();
   };
 
   return {
-    user,
+    token,
     signIn,
     signOut,
   };
