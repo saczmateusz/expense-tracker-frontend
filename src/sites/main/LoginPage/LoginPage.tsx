@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router';
 import { FieldErrors } from 'react-hook-form';
-import { AxiosError } from 'axios';
 import { useAuth } from '../../../context/authContext';
 import { LoginFormSchema, useLoginFormHook } from './useLoginFormHook';
 import TextField from '../../../components/input/TextField';
+import { CustomAxiosError } from '../../../types/ErrorResponse';
 
 const LoginPage: React.FC = () => {
   let location = useLocation();
@@ -12,7 +12,7 @@ const LoginPage: React.FC = () => {
   let auth = useAuth();
   if (!auth) return;
 
-  const [error, setError] = React.useState<boolean>();
+  const [error, setError] = React.useState<string>();
 
   const loginForm = useLoginFormHook();
 
@@ -24,14 +24,14 @@ const LoginPage: React.FC = () => {
       () => {
         navigate(from);
       },
-      (_e: AxiosError) => {
-        setError(true);
+      (e: CustomAxiosError) => {
+        setError(e.response?.data?.message);
       }
     );
   };
 
   const onSubmit = (values: LoginFormSchema): void => {
-    setError(false);
+    setError(undefined);
     login(values);
   };
 
@@ -53,7 +53,7 @@ const LoginPage: React.FC = () => {
             type='password'
           />
 
-          {error && (
+          {Boolean(error) && (
             <div className='my-2.5 px-3 py-1.5 bg-red-300 border-0 rounded-md'>
               E-mail or password invalid!
             </div>
