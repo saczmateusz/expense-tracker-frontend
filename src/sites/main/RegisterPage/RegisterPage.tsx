@@ -5,6 +5,7 @@ import { FieldErrors } from 'react-hook-form';
 import { RegisterFormSchema, useRegisterFormHook } from './useRegisterFormHook';
 import { registerRequest } from '../../../services/authService';
 import { CustomAxiosError } from '../../../types/ErrorResponse';
+import PageHeader from '../../../components/pageHeader/PageHeader';
 
 const RegisterPage: React.FC = () => {
   let navigate = useNavigate();
@@ -32,7 +33,7 @@ const RegisterPage: React.FC = () => {
 
   return (
     <div>
-      <h1 className='text-3xl my-5'>Register Page</h1>
+      <PageHeader title='Register Page' />
 
       <div className='flex flex-col'>
         <form onSubmit={registerForm.handleSubmit(onSubmit, onError)}>

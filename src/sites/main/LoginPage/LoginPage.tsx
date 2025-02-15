@@ -5,6 +5,7 @@ import { useAuth } from '../../../context/authContext';
 import { LoginFormSchema, useLoginFormHook } from './useLoginFormHook';
 import TextField from '../../../components/input/TextField';
 import { CustomAxiosError } from '../../../types/ErrorResponse';
+import PageHeader from '../../../components/pageHeader/PageHeader';
 
 const LoginPage: React.FC = () => {
   let location = useLocation();
@@ -41,7 +42,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div>
-      <h1 className='text-3xl my-5'>Login Page</h1>
+      <PageHeader title='Login Page' />
 
       <div className='flex flex-col'>
         <form onSubmit={loginForm.handleSubmit(onSubmit, onError)}>

@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../context/authContext';
+import PageHeader from '../../components/pageHeader/PageHeader';
+import Button from '../../components/button/Button';
+import SectionHeader from '../../components/sectionHeader/SectionHeader';
+import SectionPanel from '../../components/sectionPanel/SectionPanel';
+import ExpenseList from '../../entities/expense/components/ExpenseList';
+import { ExpenseRange } from '../../entities/expense/enums';
 
 const HomePage: React.FC = () => {
   let navigate = useNavigate();
@@ -9,24 +15,31 @@ const HomePage: React.FC = () => {
 
   return (
     <div className='min-w-7xl'>
-      <h1 className='text-3xl my-5'>Home Page</h1>
-
-      <div>Logged in...</div>
-
-      <div>
-        <p>
-          Welcome!{' '}
-          <button
-            onClick={() => {
+      <PageHeader
+        title='My expenses'
+        menu={
+          <Button
+            label='Sign out'
+            action={() => {
               auth.signOut(() => {
                 navigate('/');
               });
             }}
-            className='rounded-md bg-indigo-400 px-3.5 py-1.5 text-white cursor-pointer'
-          >
-            Sign out
-          </button>
-        </p>
+          />
+        }
+      />
+
+      <div className='flex flex-row gap-4'>
+        <div className='w-3/5'>
+          <SectionPanel header={<SectionHeader title='Your expenses' />}>
+            <ExpenseList range={ExpenseRange.All} />
+          </SectionPanel>
+        </div>
+        <div className='w-2/5'>
+          <SectionPanel header={<SectionHeader title='Add expense' />}>
+            form placeholder
+          </SectionPanel>
+        </div>
       </div>
     </div>
   );

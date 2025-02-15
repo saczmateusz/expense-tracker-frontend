@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { NavLink } from 'react-router';
+import PageHeader from '../../components/pageHeader/PageHeader';
 
 const MainPage: React.FC = () => {
   return (
     <div className='min-w-7xl'>
-      <h1 className='text-3xl my-5'>Main Page</h1>
+      <PageHeader title='Main Page' />
 
       <div>
         Go to the{' '}

@@ -6,7 +6,6 @@ import LoginPage from './sites/main/LoginPage/LoginPage';
 import MainPage from './sites/main/MainPage';
 import PrivateRoute from './components/privateRoute/PrivateRoute';
 import RegisterPage from './sites/main/RegisterPage/RegisterPage';
-import './App.css';
 
 const App: React.FC = () => {
   return (
