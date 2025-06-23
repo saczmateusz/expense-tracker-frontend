@@ -28,6 +28,8 @@ const TextField = <FormValues extends FieldValues>({
           <input
             {...field}
             type={type}
+            value={field.value || ''}
+            step='0.01'
             className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 border-gray-300 text-gray-900 invalid:border-red-500 invalid:text-red-600 focus:invalid:ring-red-500'
           />
           <p

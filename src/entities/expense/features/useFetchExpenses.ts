@@ -5,14 +5,14 @@ import { useAuth } from '../../../context/authContext';
 import { fetchExpensesRequest } from '../services/expenseService';
 import { CustomAxiosError } from '../../../types/ErrorResponse';
 
-export const useFetchExpenses = (range: ExpenseRange) => {
+export const useFetchExpenses = (range?: ExpenseRange) => {
   const [expenses, setExpenses] = useState<Array<Expense>>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
   const auth = useAuth();
 
-  useEffect(() => {
+  const fetchExpenses = () => {
     console.log('Fetch expenses for user...');
     console.log(range); // TODO: handle ranges
     fetchExpensesRequest(auth?.token || '').then(
@@ -27,6 +27,10 @@ export const useFetchExpenses = (range: ExpenseRange) => {
         setError(true);
       }
     );
+  };
+
+  useEffect(() => {
+    fetchExpenses();
   }, []);
 
   return { expenses, loading, error };

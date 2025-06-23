@@ -6,6 +6,7 @@ import { LoginFormSchema, useLoginFormHook } from './useLoginFormHook';
 import TextField from '../../../components/input/TextField';
 import { CustomAxiosError } from '../../../types/ErrorResponse';
 import PageHeader from '../../../components/pageHeader/PageHeader';
+import SectionPanel from '../../../components/sectionPanel/SectionPanel';
 
 const LoginPage: React.FC = () => {
   let location = useLocation();
@@ -44,40 +45,46 @@ const LoginPage: React.FC = () => {
     <div>
       <PageHeader title='Login Page' />
 
-      <div className='flex flex-col'>
-        <form onSubmit={loginForm.handleSubmit(onSubmit, onError)}>
-          <TextField control={loginForm.control} name='email' label='E-mail' />
-          <TextField
-            control={loginForm.control}
-            name='password'
-            label='Password'
-            type='password'
-          />
+      <SectionPanel>
+        <div className='flex flex-col'>
+          <form onSubmit={loginForm.handleSubmit(onSubmit, onError)}>
+            <TextField
+              control={loginForm.control}
+              name='email'
+              label='E-mail'
+            />
+            <TextField
+              control={loginForm.control}
+              name='password'
+              label='Password'
+              type='password'
+            />
 
-          {Boolean(error) && (
-            <div className='my-2.5 px-3 py-1.5 bg-red-300 border-0 rounded-md'>
-              E-mail or password invalid!
-            </div>
-          )}
+            {Boolean(error) && (
+              <div className='my-2.5 px-3 py-1.5 bg-red-300 border-0 rounded-md'>
+                E-mail or password invalid!
+              </div>
+            )}
 
-          <button
-            type='submit'
-            className='rounded-md bg-indigo-400 my-2.5 px-3.5 py-1.5 text-white cursor-pointer'
-          >
-            Log in
-          </button>
-        </form>
-      </div>
-      <div>
-        Go back to the{' '}
-        <NavLink to='/' className='text-blue-950 font-bold'>
-          main page
-        </NavLink>{' '}
-        or{' '}
-        <NavLink to='/register' className='text-blue-950 font-bold'>
-          register now
-        </NavLink>
-      </div>
+            <button
+              type='submit'
+              className='rounded-md bg-indigo-400 my-2.5 px-3.5 py-1.5 text-white cursor-pointer'
+            >
+              Log in
+            </button>
+          </form>
+        </div>
+        <div>
+          Go back to the{' '}
+          <NavLink to='/' className='text-blue-950 font-bold'>
+            main page
+          </NavLink>{' '}
+          or{' '}
+          <NavLink to='/register' className='text-blue-950 font-bold'>
+            register now
+          </NavLink>
+        </div>
+      </SectionPanel>
     </div>
   );
 };

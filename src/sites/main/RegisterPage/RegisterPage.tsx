@@ -6,6 +6,7 @@ import { RegisterFormSchema, useRegisterFormHook } from './useRegisterFormHook';
 import { registerRequest } from '../../../services/authService';
 import { CustomAxiosError } from '../../../types/ErrorResponse';
 import PageHeader from '../../../components/pageHeader/PageHeader';
+import SectionPanel from '../../../components/sectionPanel/SectionPanel';
 
 const RegisterPage: React.FC = () => {
   let navigate = useNavigate();
@@ -35,60 +36,62 @@ const RegisterPage: React.FC = () => {
     <div>
       <PageHeader title='Register Page' />
 
-      <div className='flex flex-col'>
-        <form onSubmit={registerForm.handleSubmit(onSubmit, onError)}>
-          <TextField
-            control={registerForm.control}
-            name='firstName'
-            label='First name'
-          />
-          <TextField
-            control={registerForm.control}
-            name='lastName'
-            label='Last name'
-          />
-          <TextField
-            control={registerForm.control}
-            name='email'
-            label='E-mail'
-          />
-          <TextField
-            control={registerForm.control}
-            name='password'
-            label='Password'
-            type='password'
-          />
-          <TextField
-            control={registerForm.control}
-            name='confirmPassword'
-            label='Confirm password'
-            type='password'
-          />
+      <SectionPanel>
+        <div className='flex flex-col'>
+          <form onSubmit={registerForm.handleSubmit(onSubmit, onError)}>
+            <TextField
+              control={registerForm.control}
+              name='firstName'
+              label='First name'
+            />
+            <TextField
+              control={registerForm.control}
+              name='lastName'
+              label='Last name'
+            />
+            <TextField
+              control={registerForm.control}
+              name='email'
+              label='E-mail'
+            />
+            <TextField
+              control={registerForm.control}
+              name='password'
+              label='Password'
+              type='password'
+            />
+            <TextField
+              control={registerForm.control}
+              name='confirmPassword'
+              label='Confirm password'
+              type='password'
+            />
 
-          {Boolean(error) && (
-            <div className='my-2.5 px-3 py-1.5 bg-red-300 border-0 rounded-md'>
-              {error}
-            </div>
-          )}
+            {Boolean(error) && (
+              <div className='my-2.5 px-3 py-1.5 bg-red-300 border-0 rounded-md'>
+                {error}
+              </div>
+            )}
 
-          <button
-            type='submit'
-            className='rounded-md bg-indigo-400 my-2.5 px-3.5 py-1.5 text-white cursor-pointer'
-          >
-            Register
-          </button>
-        </form>
-      </div>
-      <div>
-        Go back to the{' '}
-        <NavLink to='/' className='text-blue-950 font-bold'>
-          main page
-        </NavLink>{' '}
-        or{' '}
-        <NavLink to='/login' className='text-blue-950 font-bold'>
-          log in now
-        </NavLink>
-      </div>
+            <button
+              type='submit'
+              className='rounded-md bg-indigo-400 my-2.5 px-3.5 py-1.5 text-white cursor-pointer'
+            >
+              Register
+            </button>
+          </form>
+        </div>
+        <div>
+          Go back to the{' '}
+          <NavLink to='/' className='text-blue-950 font-bold'>
+            main page
+          </NavLink>{' '}
+          or{' '}
+          <NavLink to='/login' className='text-blue-950 font-bold'>
+            log in now
+          </NavLink>
+        </div>
+      </SectionPanel>
     </div>
   );
 };
